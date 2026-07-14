@@ -412,11 +412,13 @@ Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
   const input = document.getElementById('nameInput');
   const heroName = document.getElementById('heroName');
   const letterName = document.getElementById('letterName');
+  if(input){
   input.addEventListener('input', ()=>{
     const val = input.value.trim() === '' ? 'You' : input.value.trim();
     heroName.textContent = val;
     letterName.textContent = val.toLowerCase() === 'you' ? 'you' : val;
-  });
+    });
+  } 
 
   // envelope open -> confetti -> next scene
   const envelope = document.getElementById('envelope');
