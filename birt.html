@@ -217,7 +217,7 @@
 
 <div id="passGate">
   <div class="gate-card" id="gateCard">
-    <div class="gate-eyebrow">Open For Surprise</div>
+    <div class="gate-eyebrow">Open it!</div>
     <div class="gate-title">Enter the Passcode</div>
     <div class="gate-sub">this page is just for you</div>
     <input type="password" id="passInput" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="off">
@@ -247,8 +247,9 @@
   <!-- SCENE 2 — Greeting reveal -->
   <section class="scene" id="scene2">
     <div class="eyebrow">Chapter Two — The Big Day</div>
-    <h1>Happy Birthday,<br><em id="heroName">You</em> 🎂</h1>
+    <h1>Happy Birthday,<br><em id="heroName">Aqsa Alvira</em> 🎂</h1>
     <p class="sub" style="margin-top:1.2rem;">one new year, one new era</p>
+    <p class="sub" style="margin-top:1.2rem;">"I don't know about you, But I'm feeling 27"</p>
 
     <button class="btn" id="toScene3">Next →</button>
   </section>
@@ -294,15 +295,15 @@
     <div class="cards-wrap">
       <div class="flip-card c1"><div class="flip-inner">
         <div class="flip-front"><div class="dot"></div><p>Era of Joy</p></div>
-        <div class="flip-back"><p>May this year be full of little moments that make you smile without even noticing.</p></div>
+        <div class="flip-back"><p>May this year you always find a place, a person, and a peace that make you feel safe enough to be completely yourself. May your heart know that you deserve love, kindness, and security every single day.</p></div>
       </div></div>
       <div class="flip-card c2"><div class="flip-inner">
         <div class="flip-front"><div class="dot"></div><p>Era of Courage</p></div>
-        <div class="flip-back"><p>May you find the confidence to finally take that step you've been putting off.</p></div>
+        <div class="flip-back"><p>May you you stop measuring your journey against anyone else's. May you trust that your story is unfolding at its own perfect pace, and may every step you take lead you exactly where you're meant to be.</p></div>
       </div></div>
       <div class="flip-card c3"><div class="flip-inner">
         <div class="flip-front"><div class="dot"></div><p>Era of Being Loved</p></div>
-        <div class="flip-back"><p>May you always remember how many people are grateful you exist.</p></div>
+        <div class="flip-back"><p>May you meet someone who chooses you wholeheartedly—not because you're perfect, but because you're you. May your prince be someone who brings you peace instead of uncertainty, celebrates your dreams, and makes you feel loved every day.</p></div>
       </div></div>
     </div>
     <button class="btn" id="toScene5" style="margin-top:0.6rem;">Next →</button>
@@ -312,10 +313,24 @@
   <section class="scene" id="scene5">
     <div class="eyebrow">Chapter Five — The Final Letter</div>
     <div class="letter-paper">
-      <div class="to">To <span id="letterName">you</span>,</div>
-      <div id="letterBody" contenteditable="true">Thank you for being part of this story. I hope this new year of yours feels like a favorite song on repeat — warm, familiar, and something that settles your heart. Happy birthday, and happy celebrating you.</div>
-      <div class="from">with love 🤍</div>
-      <div class="edit-hint">*tap the letter to edit it</div>
+      <div class="to">To <span id="letterName">Aqsa</span>,</div>
+      <div id="letterBody" contenteditable="true">Happy Birthday, Sasa. 🤍✨
+
+Another year, another chapter of your beautiful story. I hope this year feels lighter than the last and brings you closer to everything you've been wishing for.
+
+I know life can sometimes make you feel like everyone else is moving ahead while you're standing still. But please remember that flowers don't all bloom in the same season, and that doesn't make them any less beautiful. Your journey is yours alone, and the right things will find you at exactly the right time.
+
+I wish you a heart that always feels safe, a mind that's filled with peace instead of doubt, and the courage to believe that you are never behind—you are simply becoming who you're meant to be.
+
+May this be the year you discover new dreams, make unforgettable memories, and laugh a little louder. And when love finally finds you, I hope it feels gentle and certain. I hope your prince is someone who chooses you every day, protects your heart, celebrates your dreams, and makes ordinary moments feel magical.
+
+Thank you for being such a wonderful cousin. Watching you grow into the person you are today has been a gift. No matter where life takes us, I'll always be cheering you on.
+
+As Taylor once wrote, *"Long live all the magic we made."* I hope this year brings you even more magic, more joy, and more moments that remind you how deeply loved you are.
+
+Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
+</div>
+      <div class="from">Someone</div>
     </div>
     <button class="btn" id="replayBtn" style="margin-top:1.6rem;">Close the Book, Replay ↺</button>
   </section>
@@ -350,7 +365,7 @@
     } else {
       wrongAttempts++;
       if(wrongAttempts >= 6){
-        gateError.textContent = 'still stuck? it starts with 19';
+        gateError.textContent = 'You're Stupid, it starts with 19';
       } else if(wrongAttempts >= 3){
         gateError.textContent = 'hint: your favorite numbers';
       } else {
