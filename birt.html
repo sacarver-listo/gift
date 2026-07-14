@@ -7,6 +7,44 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
+  #musicPlayer{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:15px 20px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(15px);
+    border-radius:50px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    z-index:999;
+  }
+  #playPause{
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    background:#2F86C7;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    transition:.3s;
+  }
+  #playPause:hover{
+    transform:scale(1.1);
+  }
+  .musicInfo{
+    text-align:left;
+    font-family:Poppins,sans-serif;
+  }
+  .musicInfo strong{
+    font-size:14px;
+  }
+  .musicInfo small{
+    opacity:.7;
+  }
   :root{
     --ink:#14304D; --cream:#FFFFFF; --rose:#2F86C7; --gold:#C98D14; --lav:#AFD8F8; --teal:#4FB8B0;
   }
@@ -34,7 +72,6 @@
   .sparkle span{position:absolute; width:3px; height:3px; background:var(--gold); border-radius:50%; opacity:0.8; box-shadow:0 0 5px rgba(201,141,20,0.55); animation:twinkle 3s ease-in-out infinite;}
   @keyframes twinkle{0%,100%{opacity:0.15; transform:scale(1);}50%{opacity:1; transform:scale(1.8);}}
 
-  /* ---- scene wrapper ---- */
   .stage{
     position:relative; width:100%; height:100vh;
   }
@@ -71,7 +108,6 @@
   .progress span{width:7px; height:7px; border-radius:50%; background:rgba(20,48,77,0.22); transition:background 0.3s ease, transform 0.3s ease;}
   .progress span.on{background:var(--gold); transform:scale(1.3);}
 
-  /* ---- SCENE 1: envelope ---- */
   #nameInput{
     background:transparent; border:none; border-bottom:2px solid var(--lav); color:var(--ink);
     font-family:'Playfair Display', serif; font-style:italic; font-size:1.3rem; text-align:center;
@@ -91,7 +127,6 @@
 
   .hint{font-family:'Space Mono', monospace; font-size:0.65rem; letter-spacing:0.08em; color:rgba(20,48,77,0.5); margin-top:0.4rem;}
 
-  /* ---- SCENE 2: greeting ---- */
   .confetti-piece{position:fixed; top:-10px; width:8px; height:14px; opacity:0.9; z-index:50; pointer-events:none; animation-name:fall; animation-timing-function:linear;}
   @keyframes fall{to{transform:translateY(110vh) rotate(540deg); opacity:0;}}
 
@@ -126,7 +161,6 @@
     100%{ transform:translateY(-125vh) translateX(calc(var(--drift,20px) * -1)) rotate(-4deg); opacity:0; }
   }
 
-  /* ---- SCENE 3: cake ceremony ---- */
   .cake-stage{position:relative; width:100%; display:flex; flex-direction:column; align-items:center; margin:1.6rem 0 1.8rem;}
   .cake{position:relative; width:220px; height:180px; margin-top:60px; filter:drop-shadow(0 18px 28px rgba(20,48,77,0.28)); cursor:pointer;}
   .cake-half{position:absolute; inset:0; transition:transform 0.8s cubic-bezier(.5,-0.2,.4,1.15), opacity 0.6s ease;}
@@ -163,7 +197,6 @@
   .wish-card h3{font-family:'Playfair Display', serif; color:var(--ink); margin-bottom:0.6rem; font-size:1.3rem;}
   .wish-card p{font-family:'Poppins', sans-serif; font-size:0.85rem; color:rgba(20,48,77,0.7); line-height:1.55; margin-bottom:1.4rem;}
 
-   /* ---- SCENE 4: wish cards ---- */
   .cards-wrap{display:flex; flex-wrap:wrap; justify-content:center; gap:1.3rem; max-width:820px; margin-bottom:1rem;}
   .flip-card{width:220px; perspective:1200px;}
   .flip-inner{position:relative; width:100%; display:grid; transition:transform 0.7s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d; cursor:pointer;}
@@ -176,7 +209,6 @@
   .flip-back p{font-family:'Playfair Display', serif; font-style:italic; font-size:1rem; line-height:1.5;}
   .c1 .dot{background:var(--rose);} .c2 .dot{background:var(--gold);} .c3 .dot{background:var(--teal);}
 
-  /* ---- SCENE 5: letter ---- */
   .letter-paper{
     width:min(90vw,480px); background:var(--cream); color:var(--ink); border-radius:8px; padding:2.4rem 2rem;
     box-shadow:0 24px 60px rgba(0,0,0,0.4); text-align:left; max-height:60vh; overflow-y:auto;
@@ -186,7 +218,6 @@
   .letter-paper .from{font-family:'Caveat', cursive; font-size:1.6rem; margin-top:1.2rem; text-align:right;}
   .edit-hint{font-family:'Space Mono', monospace; font-size:0.6rem; letter-spacing:0.08em; color:rgba(20,48,77,0.4); margin-top:0.6rem; text-align:right;}
 
-  /* ---- passcode gate ---- */
   #passGate{
     position:fixed; inset:0; z-index:200;
     background:linear-gradient(160deg,#EAF6FF,#D6ECFB);
@@ -231,7 +262,6 @@
 
 <div class="stage">
 
-  <!-- SCENE 1 — Envelope intro -->
   <section class="scene active" id="scene1">
     <div class="eyebrow">Chapter One — For You</div>
     <div class="envelope" id="envelope">
@@ -243,17 +273,15 @@
     <div class="hint">tap the envelope to open it ✨</div>
   </section>
 
-  <!-- SCENE 2 — Greeting reveal -->
   <section class="scene" id="scene2">
     <div class="eyebrow">Chapter Two — The Big Day</div>
     <h1>Happy Birthday,<br><em id="heroName">Aqsa Alvira</em> 🎂</h1>
     <p class="sub" style="margin-top:1.2rem;">one new year, one new era</p>
-    <h3>"I don't know about you, But I'm feeling 27"</h3>
+    <h3>Here's to this chapter being your favorite one yet</h3>
 
     <button class="btn" id="toScene3">Next →</button>
   </section>
 
-  <!-- SCENE 3 — Cake ceremony -->
   <section class="scene" id="scene3">
     <div class="eyebrow">Chapter Three — Cake Time</div>
     <h2>Light the Candles</h2>
@@ -286,7 +314,6 @@
     </div>
   </section>
 
-  <!-- SCENE 4 — Wish cards -->
   <section class="scene" id="scene4">
     <div class="eyebrow">Chapter Four — Three Wishes</div>
     <h2>Flip the Cards</h2>
@@ -298,7 +325,7 @@
       </div></div>
       <div class="flip-card c2"><div class="flip-inner">
         <div class="flip-front"><div class="dot"></div><p>Era of Courage</p></div>
-        <div class="flip-back"><p>May you you stop measuring your journey against anyone else's. May you trust that your story is unfolding at its own perfect pace, and may every step you take lead you exactly where you're meant to be.</p></div>
+        <div class="flip-back"><p>May you stop measuring your journey against anyone else's. May you trust that your story is unfolding at its own perfect pace, and may every step you take lead you exactly where you're meant to be.</p></div>
       </div></div>
       <div class="flip-card c3"><div class="flip-inner">
         <div class="flip-front"><div class="dot"></div><p>Era of Being Loved</p></div>
@@ -308,7 +335,6 @@
     <button class="btn" id="toScene5" style="margin-top:0.6rem;">Next →</button>
   </section>
 
-  <!-- SCENE 5 — Final letter -->
   <section class="scene" id="scene5">
     <div class="eyebrow">Chapter Five — The Final Letter</div>
     <div class="letter-paper">
@@ -325,7 +351,7 @@ May this be the year you discover new dreams, make unforgettable memories, and l
 
 Thank you for being such a wonderful cousin. Watching you grow into the person you are today has been a gift. No matter where life takes us, I'll always be cheering you on.
 
-As Taylor once wrote, *"Long live all the magic we made."* I hope this year brings you even more magic, more joy, and more moments that remind you how deeply loved you are.
+I hope this year brings you so much magic that it spills over into the next one — more joy, more laughter, and more moments that remind you how deeply loved you are.
 
 Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
 </div>
@@ -347,8 +373,35 @@ Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
 
 <div class="progress" id="progressDots"></div>
 
+<audio id="bgMusic" preload="auto" loop>
+  <source src="All Too Well (10 Minute Version) (Taylor's Version).mp3" type="audio/mpeg">
+</audio>
+<div id="musicPlayer">
+  <button id="playPause">▶</button>
+  <div class="musicInfo">
+    <strong>All Too Well</strong><br>
+    <small>Taylor's Version</small>
+  </div>
+</div>
+
 <script>
-  // passcode gate
+  const music = document.getElementById("bgMusic");
+  const playBtn = document.getElementById("playPause");
+
+  playBtn.addEventListener("click", async ()=>{
+    if(music.paused){
+      try{
+        await music.play();
+        playBtn.innerHTML = "⏸";
+      }catch(err){
+        console.warn("Could not play audio — check that the mp3 file is in the same folder as this HTML file.", err);
+      }
+    }else{
+      music.pause();
+      playBtn.innerHTML = "▶";
+    }
+  });
+
   const PASSCODE = '191919';
   let wrongAttempts = 0;
   const passGate = document.getElementById('passGate');
@@ -360,11 +413,12 @@ Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
   function tryUnlock(){
     if(passInput.value.trim() === PASSCODE){
       passGate.classList.add('unlocked');
+      music.play().then(()=>{ playBtn.innerHTML = "⏸"; }).catch(()=>{});
       gateError.classList.remove('show');
     } else {
       wrongAttempts++;
       if(wrongAttempts >= 6){
-        gateError.textContent = 'You are Stupid, it starts with 19';
+        gateError.textContent = 'hint: it starts with 19';
       } else if(wrongAttempts >= 3){
         gateError.textContent = 'hint: your favorite numbers';
       } else {
@@ -382,7 +436,6 @@ Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
   passInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') tryUnlock(); });
   window.addEventListener('DOMContentLoaded', ()=> passInput.focus());
 
-  // sparkle field
   const field = document.getElementById('sparkleField');
   for(let i=0;i<40;i++){
     const s = document.createElement('span');
@@ -393,7 +446,6 @@ Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
     field.appendChild(s);
   }
 
-  // scene navigation
   const scenes = ['scene1','scene2','scene3','scene4','scene5'];
   let current = 0;
   const dotsWrap = document.getElementById('progressDots');
@@ -409,17 +461,17 @@ Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
     [...dotsWrap.children].forEach((d,idx)=>d.classList.toggle('on', idx===current));
   }
 
-  // name personalization
   const input = document.getElementById('nameInput');
   const heroName = document.getElementById('heroName');
   const letterName = document.getElementById('letterName');
-  input.addEventListener('input', ()=>{
-    const val = input.value.trim() === '' ? 'You' : input.value.trim();
-    heroName.textContent = val;
-    letterName.textContent = val.toLowerCase() === 'you' ? 'you' : val;
-  });
+  if(input){
+    input.addEventListener('input', ()=>{
+      const val = input.value.trim() === '' ? 'You' : input.value.trim();
+      heroName.textContent = val;
+      letterName.textContent = val.toLowerCase() === 'you' ? 'you' : val;
+    });
+  }
 
-  // envelope open -> confetti -> next scene
   const envelope = document.getElementById('envelope');
   const colors = ['#2F86C7','#C98D14','#AFD8F8','#4FB8B0','#FFFFFF'];
   function burstConfetti(n=60){
@@ -493,7 +545,6 @@ Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
     goTo(0);
   });
 
-  // cake ceremony: light candles, then cut the cake
   const cakeEl = document.getElementById('cakeEl');
   const cakeSub = document.getElementById('cakeSub');
   const candlesWrap = document.getElementById('candlesWrap');
@@ -536,7 +587,6 @@ Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
     goTo(3);
   });
 
-  // flip cards
   document.querySelectorAll('.flip-card').forEach(c=>{
     c.addEventListener('click', ()=> c.classList.toggle('flipped'));
   });
