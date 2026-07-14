@@ -164,15 +164,15 @@
   .wish-card p{font-family:'Poppins', sans-serif; font-size:0.85rem; color:rgba(20,48,77,0.7); line-height:1.55; margin-bottom:1.4rem;}
 
   /* ---- SCENE 4: wish cards ---- */
-  ..ards-wrap{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); align-items:stretch; justify-content:center; gap:1.3rem; width:100%; max-width:820px; margin:0 auto 1rem;}
-  .flip-card{width:100%; max-width:240px; margin:0 auto; perspective:1200px; isolation:isolate;}
-  .flip-inner{position:relative; width:100%; display:grid; transition:transform 0.7s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d;-webkit-transform-style:preserve-3d;cursor:pointer;will-change:transform;;}
+  .cards-wrap{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); align-items:stretch; justify-content:center; gap:1.3rem; width:100%; max-width:820px; margin:0 auto 1rem;}
+  .flip-card{width:100%; max-width:240px; margin:0 auto;height:clamp(230px, 42vh, 320px); perspective:1200px; isolation:isolate;}
+  .flip-inner{position:relative; width:100%; height:100%;display:grid; transition:transform 0.7s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d;-webkit-transform-style:preserve-3d;cursor:pointer;will-change:transform;;}
   .flip-card.flipped .flip-inner{transform:rotateY(180deg)translateZ(0);}
-  .flip-front,.flip-back{grid-area:1/1; min-height:100%; backface-visibility:hidden;-webkit-backface-visibility:hidden; transform:translateZ(0);border-radius:16px; padding:1.4rem 1.2rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.7rem;}
+  .flip-front,.flip-back{position:absolute; inset:0; overflow-y:auto; backface-visibility:hidden;-webkit-backface-visibility:hidden; transform:translateZ(0);border-radius:16px; padding:1.4rem 1.2rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.7rem;}
   .flip-front{background:rgba(20,48,77,0.05); border:1px solid rgba(20,48,77,0.16);}
   .flip-front .dot{width:14px; height:14px; border-radius:50%;}
   .flip-front p{font-family:'Space Mono', monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(20,48,77,0.65);}
-  .flip-back{background:var(--cream); color:var(--ink); transform:rotateY(180deg);}
+  .flip-back{background:var(--cream); color:var(--ink); transform:rotateY(180deg) translateZ(0);}
   .flip-back p{font-family:'Playfair Display', serif; font-style:italic; font-size:1rem; line-height:1.5;}
   .c1 .dot{background:var(--rose);} .c2 .dot{background:var(--gold);} .c3 .dot{background:var(--teal);}
 
