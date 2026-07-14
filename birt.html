@@ -164,11 +164,11 @@
   .wish-card p{font-family:'Poppins', sans-serif; font-size:0.85rem; color:rgba(20,48,77,0.7); line-height:1.55; margin-bottom:1.4rem;}
 
   /* ---- SCENE 4: wish cards ---- */
-  .cards-wrap{display:flex; flex-wrap:wrap; justify-content:center; gap:1.3rem; max-width:820px; margin-bottom:1rem;}
-  .flip-card{width:220px; height:230px; perspective:1200px;}
-  .flip-inner{position:relative; width:100%; display:grid; transition:transform 0.7s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d; cursor:pointer;}
-  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
-  .flip-front,.flip-back{grid-area:1/1; min-height:100%; backface-visibility:hidden; border-radius:16px; padding:1.4rem 1.2rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.7rem;}
+  ..ards-wrap{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); align-items:stretch; justify-content:center; gap:1.3rem; width:100%; max-width:820px; margin:0 auto 1rem;}
+  .flip-card{width:100%; max-width:240px; margin:0 auto; perspective:1200px; isolation:isolate;}
+  .flip-inner{position:relative; width:100%; display:grid; transition:transform 0.7s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d;-webkit-transform-style:preserve-3d;cursor:pointer;will-change:transform;;}
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg)translateZ(0);}
+  .flip-front,.flip-back{grid-area:1/1; min-height:100%; backface-visibility:hidden;-webkit-backface-visibility:hidden; transform:translateZ(0);border-radius:16px; padding:1.4rem 1.2rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.7rem;}
   .flip-front{background:rgba(20,48,77,0.05); border:1px solid rgba(20,48,77,0.16);}
   .flip-front .dot{width:14px; height:14px; border-radius:50%;}
   .flip-front p{font-family:'Space Mono', monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(20,48,77,0.65);}
@@ -246,8 +246,9 @@
   <!-- SCENE 2 — Greeting reveal -->
   <section class="scene" id="scene2">
     <div class="eyebrow">Chapter Two — The Big Day</div>
-    <h1>Happy Birthday,<br><em id="heroName">Aqsa Alvira</em> 🎂</h1>
+    <h1>Happy Birthday,<br><em id="heroName">Aqsa Alvira</em> 🎂𝟐𝟕</h1>
     <p class="sub" style="margin-top:1.2rem;">one new year, one new era</p>
+    <h1>"I don't know about you, But I'm feeling 𝟐𝟕"</h1>
 
     <button class="btn" id="toScene3">Next →</button>
   </section>
@@ -312,8 +313,7 @@
     <div class="eyebrow">Chapter Five — The Final Letter</div>
     <div class="letter-paper">
       <div class="to">To <span id="letterName">Aqsa</span>,</div>
-      <div id="letterBody" contenteditable="true">Happy Birthday, Sasa. 🤍✨
-
+      <div id="letterBody" contenteditable="true">
 Another year, another chapter of your beautiful story. I hope this year feels lighter than the last and brings you closer to everything you've been wishing for.
 
 I know life can sometimes make you feel like everyone else is moving ahead while you're standing still. But please remember that flowers don't all bloom in the same season, and that doesn't make them any less beautiful. Your journey is yours alone, and the right things will find you at exactly the right time.
@@ -328,7 +328,7 @@ As Taylor once wrote, *"Long live all the magic we made."* I hope this year brin
 
 May this year be your Lover, your Daylight, your Long Live era—a year where you worry a little less, smile a little more, and finally believe that the best things in life aren't behind you; they're still waiting to find you.
 
-Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
+Happy 27th Birthday, May this be your best era yet. 🩶🍂✨
 </div>
       <div class="from">Someone</div>
     </div>
