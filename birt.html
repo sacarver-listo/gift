@@ -7,81 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  #musicPlayer{
-
-position:fixed;
-
-bottom:25px;
-
-right:25px;
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
-padding:15px 20px;
-
-background:rgba(255,255,255,.15);
-
-backdrop-filter:blur(15px);
-
-border-radius:50px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-
-z-index:999;
-
-}
-
-#playPause{
-
-width:50px;
-
-height:50px;
-
-border:none;
-
-border-radius:50%;
-
-background:#2F86C7;
-
-color:white;
-
-font-size:20px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-#playPause:hover{
-
-transform:scale(1.1);
-
-}
-
-.musicInfo{
-
-text-align:left;
-
-font-family:Poppins,sans-serif;
-
-}
-
-.musicInfo strong{
-
-font-size:14px;
-
-}
-
-.musicInfo small{
-
-opacity:.7;
-
-}
   :root{
     --ink:#14304D; --cream:#FFFFFF; --rose:#2F86C7; --gold:#C98D14; --lav:#AFD8F8; --teal:#4FB8B0;
   }
@@ -421,29 +346,8 @@ Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
 </div>
 
 <div class="progress" id="progressDots"></div>
-
+const bgMusic = document.getElementById("bgMusic");
 <script>
-  const music = document.getElementById("bgMusic");
-
-const playBtn = document.getElementById("playPause");
-
-playBtn.addEventListener("click", async ()=>{
-
-    if(music.paused){
-
-        await music.play();
-
-        playBtn.innerHTML="⏸";
-
-    }else{
-
-        music.pause();
-
-        playBtn.innerHTML="▶";
-
-    }
-
-});
   // passcode gate
   const PASSCODE = '191919';
   let wrongAttempts = 0;
@@ -455,16 +359,9 @@ playBtn.addEventListener("click", async ()=>{
 
   function tryUnlock(){
     if(passInput.value.trim() === PASSCODE){
-
-    passGate.classList.add('unlocked');
-
-    music.play().catch(()=>{});
-
-    playBtn.innerHTML="⏸";
-
-    gateError.classList.remove('show');
-
-} else {
+      passGate.classList.add('unlocked');
+      gateError.classList.remove('show');
+    } else {
       wrongAttempts++;
       if(wrongAttempts >= 6){
         gateError.textContent = 'You are Stupid, it starts with 19';
@@ -582,6 +479,8 @@ playBtn.addEventListener("click", async ()=>{
   envelope.addEventListener('click', ()=>{
     if(envelopeOpened) return;
     envelopeOpened = true;
+    envelope.addEventListener('click', ()=>{ bgMusic.volume = 0.35;
+bgMusic.play().catch(()=>{});
     envelope.classList.add('open');
     burstConfetti(50);
     launchBalloons(8);
@@ -646,22 +545,7 @@ playBtn.addEventListener("click", async ()=>{
 </script>
 
   <audio id="bgMusic" preload="auto" loop>
-    <source src="All Too Well (10 Minute Version) (Taylor's Version).mp3" type="audio/mpeg">
+    <source src="all-too-well.mp3" type="audio/mpeg">
 </audio>
-  <div id="musicPlayer">
-
-    <button id="playPause">
-        ▶
-    </button>
-
-    <div class="musicInfo">
-
-        <strong>All Too Well</strong><br>
-
-        <small>Taylor's Version</small>
-
-    </div>
-
-</div>
 </body>
 </html>
