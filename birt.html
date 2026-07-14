@@ -346,7 +346,7 @@ Happy 27th Birthday, Sasa. May this be your best era yet. 🩶🍂✨
 </div>
 
 <div class="progress" id="progressDots"></div>
-const bgMusic = document.getElementById("bgMusic");
+
 <script>
   // passcode gate
   const PASSCODE = '191919';
@@ -479,8 +479,6 @@ const bgMusic = document.getElementById("bgMusic");
   envelope.addEventListener('click', ()=>{
     if(envelopeOpened) return;
     envelopeOpened = true;
-    envelope.addEventListener('click', ()=>{ bgMusic.volume = 0.35;
-bgMusic.play().catch(()=>{});
     envelope.classList.add('open');
     burstConfetti(50);
     launchBalloons(8);
@@ -544,8 +542,5 @@ bgMusic.play().catch(()=>{});
   });
 </script>
 
-  <audio id="bgMusic" preload="auto" loop>
-    <source src="all-too-well.mp3" type="audio/mpeg">
-</audio>
 </body>
 </html>
