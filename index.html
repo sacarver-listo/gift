@@ -220,7 +220,7 @@
     <div class="gate-eyebrow">Unlock it!</div>
     <div class="gate-title">Enter the Passcode</div>
     <div class="gate-sub">this page is just for you</div>
-    <input type="password" id="passInput" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="off">
+    <input type="password" id="passInput" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="••••••" autocomplete="off">
     <div class="gate-error" id="gateError">wrong code, try again</div>
     <button class="btn" id="gateSubmit">Unlock →</button>
   </div>
@@ -381,8 +381,10 @@ Happy 27th Birthday, May this be your best era yet. 🩶🍂✨
     gateError.classList.remove('show');
 } else {
       wrongAttempts++;
-      if(wrongAttempts >= 6){
-        gateError.textContent = 'You are Stupid, it starts with 19';
+      if(wrongAttempts >= 9){
+        gateError.textContent = 'For real you are really that Stupid, 1919xx';
+      } else if(wrongAttempts >= 6){
+        gateError.textContent = 'hint: You are Stupid, it starts with 19';
       } else if(wrongAttempts >= 3){
         gateError.textContent = 'hint: your favorite numbers';
       } else {
