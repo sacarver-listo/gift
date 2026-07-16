@@ -91,6 +91,18 @@
 
   .hint{font-family:'Space Mono', monospace; font-size:0.65rem; letter-spacing:0.08em; color:rgba(20,48,77,0.5); margin-top:0.4rem;}
 
+    /* ---- gift box (scene 1) ---- */
+  .giftbox{width:min(50vw,180px); height:150px; position:relative; margin:0 auto 2rem; cursor:pointer; filter:drop-shadow(0 20px 40px rgba(20,48,77,0.3));}
+  .gift-glow{position:absolute; top:20%; left:-10%; right:-10%; height:60%; border-radius:50%; background:radial-gradient(circle, rgba(201,141,20,0.35), transparent 70%); opacity:0; transform:scale(0.4); transition:transform 0.6s ease, opacity 0.6s ease; z-index:0;}
+  .giftbox.open .gift-glow{opacity:1; transform:scale(1.5);}
+  .gift-body{position:absolute; bottom:0; left:0; width:100%; height:66%; background:linear-gradient(160deg,#2C5A82,#173A57); border-radius:8px; z-index:1;}
+  .gift-ribbon-v{position:absolute; top:0; bottom:0; left:50%; transform:translateX(-50%); width:16%; background:var(--gold); z-index:2; transition:opacity 0.4s ease 0.15s;}
+  .giftbox.open .gift-ribbon-v{opacity:0;}
+  .gift-lid{position:absolute; top:0; left:-6%; width:112%; height:38%; background:linear-gradient(160deg,var(--lav),var(--rose)); border-radius:10px; transform-origin:center bottom; transition:transform 0.7s cubic-bezier(.6,-0.2,.3,1.4), opacity 0.5s ease 0.05s; z-index:3;}
+  .giftbox.open .gift-lid{transform:translateY(-90px) rotate(-18deg); opacity:0;}
+  .gift-bow{position:absolute; top:-16px; left:50%; transform:translateX(-50%); font-size:2rem; z-index:4; transition:transform 0.6s ease 0.05s, opacity 0.5s ease 0.05s;}
+  .giftbox.open .gift-bow{transform:translate(-50%,-90px) rotate(25deg) scale(0.6); opacity:0;}
+
   /* ---- SCENE 2: greeting ---- */
   .confetti-piece{position:fixed; top:-10px; width:8px; height:14px; opacity:0.9; z-index:50; pointer-events:none; animation-name:fall; animation-timing-function:linear;}
   @keyframes fall{to{transform:translateY(110vh) rotate(540deg); opacity:0;}}
@@ -234,13 +246,13 @@
   <!-- SCENE 1 — Envelope intro -->
   <section class="scene active" id="scene1">
     <div class="eyebrow">Chapter One — For You</div>
-    <div class="envelope" id="envelope">
-      <div class="env-letter"></div>
-      <div class="env-body"></div>
-      <div class="env-flap"></div>
-      <div class="env-seal">✶</div>
-    </div>
-    <div class="hint">Hi, tap the envelope to open it ✨</div>
+  <div class="giftbox" id="envelope">
+      <div class="gift-glow"></div>
+      <div class="gift-body"></div>
+      <div class="gift-ribbon-v"></div>
+      <div class="gift-lid"></div>
+      <div class="gift-bow">🎀</div>
+    <div class="hint">Hi, tap the box to open it ✨</div>
   </section>
 
   <!-- SCENE 2 — Greeting reveal -->
@@ -311,9 +323,16 @@
   <!-- SCENE 5 — Final letter -->
   <section class="scene" id="scene5">
     <div class="eyebrow">Chapter Five — The Final Letter</div>
-    <div class="letter-paper">
+    <div class="envelope" id="letterEnvelope">
+      <div class="env-letter"></div>
+      <div class="env-body"></div>
+      <div class="env-flap"></div>
+      <div class="env-seal">✶</div>
+    </div>
+    <div class="hint" id="letterHint">tap the envelope to open ✨</div>
+    <div class="letter-paper" id="letterPaperWrap" style="display:none; opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;">
       <div class="to">To <span id="letterName">Aqsa</span>,</div>
-      <div id="letterBody" contenteditable="true">
+      <div id="letterBody" contenteditable="false">
 Another year, another chapter of your beautiful story. I hope this year feels lighter than the last and brings you closer to everything you've been wishing for.
 
 I know life has asked more of you than it should lately. Watching you go through a difficult season and you have to carried that weight alone isn't easy and exhausting.
@@ -400,6 +419,9 @@ Happy 27th Birthday, May this be your best era yet. 🩶🍂✨
   }
   gateSubmit.addEventListener('click', tryUnlock);
   passInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') tryUnlock(); });
+  passInput.addEventListener('input', ()=>{
+    passInput.value = passInput.value.replace(/[^0-9]/g, '');
+  });
   window.addEventListener('DOMContentLoaded', () => {
     passInput.focus();
     bgMusic = document.getElementById("bgMusic");
@@ -513,9 +535,39 @@ Happy 27th Birthday, May this be your best era yet. 🩶🍂✨
 
   document.getElementById('toScene3').addEventListener('click', ()=>{ burstConfetti(30); goTo(2); });
   document.getElementById('toScene5').addEventListener('click', ()=> goTo(4));
-  document.getElementById('replayBtn').addEventListener('click', ()=>{
+
+  const letterEnvelope = document.getElementById('letterEnvelope');
+  const letterHint = document.getElementById('letterHint');
+  const letterPaperWrap = document.getElementById('letterPaperWrap');
+  const replayBtn = document.getElementById('replayBtn');
+  let letterOpened = false;
+  letterEnvelope.addEventListener('click', ()=>{
+    if(letterOpened) return;
+    letterOpened = true;
+    letterEnvelope.classList.add('open');
+    setTimeout(()=>{
+      letterEnvelope.style.display = 'none';
+      letterHint.style.display = 'none';
+      letterPaperWrap.style.display = 'block';
+      replayBtn.style.display = 'inline-block';
+      requestAnimationFrame(()=>{
+        letterPaperWrap.style.opacity = '1';
+        letterPaperWrap.style.transform = 'translateY(0)';
+      });
+    }, 900);
+  });
+
+  replayBtn.addEventListener('click', ()=>{
     envelope.classList.remove('open');
     envelopeOpened = false;
+    letterEnvelope.classList.remove('open');
+    letterOpened = false;
+    letterEnvelope.style.display = '';
+    letterHint.style.display = '';
+    letterPaperWrap.style.display = 'none';
+    letterPaperWrap.style.opacity = '0';
+    letterPaperWrap.style.transform = 'translateY(14px)';
+    replayBtn.style.display = 'none';
     goTo(0);
   });
 
