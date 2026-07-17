@@ -3,212 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>a question for you</title>
+<title>let's figure out our date</title>
 <style>
-  /* ============================================================
-     EDIT THESE to personalize the page — everything else works
-     automatically once these are filled in.
-  ============================================================ */
-  :root {
-    --recipient-name: "you";           /* shows in the headline */
-  }
+  :root { --recipient-name: "you"; }
 
   @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap');
 
   * { box-sizing: border-box; }
-
   html, body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    width: 100%;
-    overflow-x: hidden;
+    margin: 0; padding: 0; min-height: 100vh; width: 100%; overflow-x: hidden;
     font-family: 'Nunito', sans-serif;
     background: linear-gradient(160deg, #FFE1EC 0%, #FFD3E0 35%, #FFEAC2 100%);
     position: relative;
   }
 
-  /* floating candy hearts drifting in the background */
   .drift {
-    position: fixed;
-    top: -60px;
-    font-size: 28px;
-    opacity: 0.55;
-    animation: fall linear infinite;
-    pointer-events: none;
-    user-select: none;
-    z-index: 0;
+    position: fixed; top: -60px; font-size: 26px; opacity: 0.5;
+    animation: fall linear infinite; pointer-events: none; user-select: none; z-index: 0;
   }
-  @keyframes fall {
-    0%   { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(110vh) rotate(360deg); }
-  }
+  @keyframes fall { 0% { transform: translateY(0) rotate(0deg);} 100% { transform: translateY(110vh) rotate(360deg);} }
 
-  .stage {
-    position: relative;
-    z-index: 1;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
+  .stage { position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
 
   .card {
-    background: #FFFDF9;
-    border-radius: 32px;
-    padding: 48px 36px 40px;
-    max-width: 460px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 20px 50px rgba(216, 70, 110, 0.18), 0 2px 0 #FFFFFF inset;
-    position: relative;
-    transform: rotate(-1deg);
-    transition: transform 0.4s ease;
-  }
-  .card:hover { transform: rotate(0deg); }
-
-  .candy {
-    width: 92px;
-    height: 92px;
-    margin: 0 auto 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 46px;
-    background: radial-gradient(circle at 35% 30%, #FF9EB5, #FF6F91 70%);
-    border-radius: 50%;
-    box-shadow: 0 10px 22px rgba(255, 111, 145, 0.45);
-    animation: bob 2.6s ease-in-out infinite;
-  }
-  @keyframes bob {
-    0%, 100% { transform: translateY(0) rotate(-4deg); }
-    50%      { transform: translateY(-8px) rotate(4deg); }
+    background: #FFFDF9; border-radius: 32px; padding: 40px 32px 32px;
+    max-width: 480px; width: 100%; text-align: center;
+    box-shadow: 0 20px 50px rgba(216,70,110,0.18), 0 2px 0 #FFFFFF inset;
+    min-height: 480px; display: flex; flex-direction: column;
   }
 
-  .eyebrow {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    font-size: 12px;
-    color: #E85D8A;
-    margin-bottom: 8px;
-  }
+  .jar-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 18px; }
+  .dots { display: flex; gap: 7px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #FFD8E2; transition: background 0.3s, transform 0.3s; }
+  .dot.done { background: #FF6F91; transform: scale(1.15); }
+  .jar { font-size: 22px; }
 
-  h1 {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 800;
-    font-size: clamp(28px, 6vw, 38px);
-    line-height: 1.15;
-    color: #4A2E3A;
-    margin: 0 0 12px;
-  }
-  h1 span {
-    color: #FF6F91;
-  }
+  .eyebrow { font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 11.5px; color: #E85D8A; margin-bottom: 8px; }
+  h1, h2 { font-family: 'Baloo 2', sans-serif; font-weight: 800; color: #4A2E3A; margin: 0 0 10px; }
+  h1 { font-size: clamp(24px, 5.5vw, 32px); line-height: 1.2; }
+  h2 { font-size: 21px; }
+  h1 span, h2 span { color: #FF6F91; }
+  .sub { font-size: 15px; color: #8A6E78; line-height: 1.55; margin: 0 0 20px; }
 
-  .sub {
-    font-size: 15.5px;
-    color: #8A6E78;
-    margin: 0 0 30px;
-    line-height: 1.5;
-  }
-
-  .buttons {
-    position: relative;
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    min-height: 64px;
-  }
+  .body-area { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 
   button {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    border: none;
-    border-radius: 999px;
-    padding: 14px 30px;
-    cursor: pointer;
+    font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16.5px;
+    border: none; border-radius: 999px; padding: 13px 26px; cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
+  .primary { background: #FF6F91; color: #fff; box-shadow: 0 8px 20px rgba(255,111,145,0.4); }
+  .primary:hover { transform: scale(1.05); }
+  .primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .ghost { background: #FFF0E9; color: #C77A6F; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+  .ghost:hover { transform: scale(1.05); }
 
-  #yesBtn {
-    background: #FF6F91;
-    color: #fff;
-    box-shadow: 0 8px 20px rgba(255, 111, 145, 0.45);
-  }
-  #yesBtn:hover { transform: scale(1.06); }
-  #yesBtn:active { transform: scale(0.97); }
+  .nav-row { display: flex; justify-content: center; gap: 12px; margin-top: 22px; }
 
-  #noBtn {
-    background: #FFF0E9;
-    color: #C77A6F;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    position: relative;
-    transition: left 0.18s ease, top 0.18s ease, transform 0.15s ease;
-  }
+  .page { display: none; }
+  .page.active { display: block; animation: pageIn 0.45s ease; }
+  @keyframes pageIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
 
-  .noBtn-fixed {
-    position: fixed !important;
+  /* ---- quiz options ---- */
+  .opt-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+  .opt {
+    background: #FFF6EF; border: 2px solid transparent; border-radius: 16px;
+    padding: 14px 16px; text-align: left; font-size: 15px; color: #4A2E3A; cursor: pointer;
+    display: flex; align-items: center; gap: 10px; font-weight: 600;
+    transition: border-color 0.15s ease, background 0.15s ease;
   }
+  .opt .em { font-size: 20px; }
+  .opt:hover { background: #FFEAF0; }
+  .opt.selected { border-color: #FF6F91; background: #FFEAF0; }
 
-  .grow {
-    font-size: calc(18px + var(--grow, 0) * 2px);
-    padding: calc(14px + var(--grow, 0) * 1.5px) calc(30px + var(--grow, 0) * 3px);
-  }
+  /* ---- crafting/loading ---- */
+  .loader { font-size: 40px; margin: 20px 0; animation: spin 1.4s linear infinite; display: inline-block; }
+  @keyframes spin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
 
-  /* ---- reveal state ---- */
-  .reveal {
-    display: none;
-  }
-  .reveal.show {
-    display: block;
-    animation: pop 0.5s cubic-bezier(.26,1.6,.5,1);
-  }
-  @keyframes pop {
-    0%   { transform: scale(0.6); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-  .reveal h2 {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 26px;
-    color: #4A2E3A;
-    margin: 6px 0 10px;
-  }
-  .reveal p {
-    color: #8A6E78;
-    font-size: 15px;
-    line-height: 1.6;
-    margin: 0;
-  }
-  .reveal .big-heart {
-    font-size: 44px;
-    animation: beat 1s ease-in-out infinite;
-  }
-  @keyframes beat {
-    0%, 100% { transform: scale(1); }
-    50%      { transform: scale(1.18); }
+  /* ---- reveal date idea ---- */
+  .date-card {
+    background: linear-gradient(135deg, #FFEAF0, #FFF6EE);
+    border-radius: 20px; padding: 22px 18px; margin: 4px 0 20px;
+    box-shadow: inset 0 0 0 2px #FFD8E2;
+    font-size: 16px; color: #4A2E3A; line-height: 1.6; font-weight: 600;
   }
 
-  .ask.hidden { display: none; }
+  .candy {
+    width: 78px; height: 78px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 38px; background: radial-gradient(circle at 35% 30%, #FF9EB5, #FF6F91 70%);
+    border-radius: 50%; box-shadow: 0 10px 22px rgba(255,111,145,0.45); animation: bob 2.6s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100% { transform: translateY(0) rotate(-4deg);} 50% { transform: translateY(-8px) rotate(4deg);} }
+
+  .final-buttons { position: relative; display: flex; gap: 14px; justify-content: center; min-height: 60px; margin-top: 4px;}
+  #noBtn { position: relative; transition: left 0.18s ease, top 0.18s ease, transform 0.15s ease; }
+  .noBtn-fixed { position: fixed !important; }
+  .grow { font-size: calc(16.5px + var(--grow, 0) * 2px); padding: calc(13px + var(--grow, 0) * 1.5px) calc(26px + var(--grow, 0) * 3px); }
+
+  .finalReveal { display: none; }
+  .finalReveal.show { display: block; animation: pop 0.5s cubic-bezier(.26,1.6,.5,1); }
+  .finalReveal .big-heart { font-size: 40px; animation: beat 1s ease-in-out infinite; }
+  @keyframes pop { 0% { transform: scale(0.6); opacity:0;} 100% { transform: scale(1); opacity:1;} }
+  @keyframes beat { 0%,100% { transform: scale(1);} 50% { transform: scale(1.18);} }
 
   .confetti-piece {
-    position: fixed;
-    top: -20px;
-    width: 10px;
-    height: 14px;
-    z-index: 5;
-    pointer-events: none;
+    position: fixed; top: -20px; width: 10px; height: 14px; z-index: 5; pointer-events: none;
     animation: confetti-fall linear forwards;
   }
-  @keyframes confetti-fall {
-    to { transform: translateY(110vh) rotate(540deg); opacity: 0.9; }
-  }
+  @keyframes confetti-fall { to { transform: translateY(110vh) rotate(540deg); opacity: 0.9; } }
 
   @media (prefers-reduced-motion: reduce) {
-    .drift, .candy, .reveal .big-heart, .confetti-piece { animation: none !important; }
+    .drift, .candy, .finalReveal .big-heart, .confetti-piece, .loader { animation: none !important; }
   }
 </style>
 </head>
@@ -217,77 +122,212 @@
 <div class="stage">
   <div class="card">
 
-    <div class="ask" id="askBlock">
-      <div class="candy">🍬</div>
-      <div class="eyebrow">a small, important question</div>
-      <h1>Hey <span id="nameSlot">you</span> — <br>go on a date with me?</h1>
-      <p class="sub">No pressure. Just a candy-shaped question sitting here, waiting for an answer.</p>
-
-      <div class="buttons" id="btnRow">
-        <button id="yesBtn">Yes 🍭</button>
-        <button id="noBtn">No</button>
-      </div>
+    <div class="jar-row">
+      <div class="dots" id="dots"></div>
+      <span class="jar" id="jarIcon">🍯</span>
     </div>
 
-    <div class="reveal" id="revealBlock">
-      <div class="big-heart">💗</div>
-      <h2>Yesss! It's a date.</h2>
-      <p>I'll find us somewhere good — coffee, a walk, or whatever sounds fun to you. Can't wait.</p>
-    </div>
+    <div class="body-area">
 
+      <!-- Page 0: Welcome -->
+      <section class="page active" data-page="0">
+        <div class="eyebrow">before anything else</div>
+        <h1>Hi <span id="nameSlot">you</span>, help me plan this</h1>
+        <p class="sub">A few quick questions about what you love — I'll use your answers to put together a date idea.</p>
+        <div class="nav-row"><button class="primary next">Start →</button></div>
+      </section>
+
+      <!-- Page 1: Q1 food -->
+      <section class="page" data-page="1">
+        <div class="eyebrow">question 1 of 3</div>
+        <h2>What are you always in the mood for?</h2>
+        <div class="opt-grid" data-q="food">
+          <div class="opt" data-value="pizza"><span class="em">🍕</span>Pizza & comfort food</div>
+          <div class="opt" data-value="sushi"><span class="em">🍣</span>Sushi & something a bit fancy</div>
+          <div class="opt" data-value="coffee"><span class="em">☕</span>Coffee & pastries</div>
+          <div class="opt" data-value="tacos"><span class="em">🌮</span>Tacos & something fun</div>
+        </div>
+        <div class="nav-row"><button class="ghost back">← Back</button></div>
+      </section>
+
+      <!-- Page 2: Q2 vibe -->
+      <section class="page" data-page="2">
+        <div class="eyebrow">question 2 of 3</div>
+        <h2>Pick a vibe</h2>
+        <div class="opt-grid" data-q="vibe">
+          <div class="opt" data-value="cozy"><span class="em">🕯️</span>Cozy & quiet</div>
+          <div class="opt" data-value="outdoor"><span class="em">🌳</span>Outdoor & adventurous</div>
+          <div class="opt" data-value="artsy"><span class="em">🎨</span>Artsy & creative</div>
+          <div class="opt" data-value="lively"><span class="em">🎶</span>Lively & social</div>
+        </div>
+        <div class="nav-row"><button class="ghost back">← Back</button></div>
+      </section>
+
+      <!-- Page 3: Q3 time -->
+      <section class="page" data-page="3">
+        <div class="eyebrow">question 3 of 3</div>
+        <h2>Best time for you?</h2>
+        <div class="opt-grid" data-q="time">
+          <div class="opt" data-value="morning"><span class="em">🌅</span>Morning</div>
+          <div class="opt" data-value="afternoon"><span class="em">☀️</span>Afternoon</div>
+          <div class="opt" data-value="evening"><span class="em">🌆</span>Evening</div>
+          <div class="opt" data-value="night"><span class="em">🌙</span>Late night</div>
+        </div>
+        <div class="nav-row"><button class="ghost back">← Back</button></div>
+      </section>
+
+      <!-- Page 4: Crafting -->
+      <section class="page" data-page="4">
+        <div class="loader">🍬</div>
+        <p class="sub">Putting your date together…</p>
+      </section>
+
+      <!-- Page 5: Reveal + ask -->
+      <section class="page" data-page="5">
+        <div id="finalAsk">
+          <div class="candy">💌</div>
+          <div class="eyebrow">based on your answers</div>
+          <h2>Here's the plan</h2>
+          <div class="date-card" id="dateIdea">Loading your date…</div>
+          <p class="sub" style="margin-bottom:14px;">So — want to go?</p>
+          <div class="final-buttons" id="btnRow">
+            <button class="primary" id="yesBtn">Yes 💗</button>
+            <button class="ghost" id="noBtn">No</button>
+          </div>
+        </div>
+        <div class="finalReveal" id="finalReveal">
+          <div class="big-heart">💗</div>
+          <h2>It's a date!</h2>
+          <p class="sub">I'll take care of the details. Can't wait.</p>
+        </div>
+      </section>
+
+    </div>
   </div>
 </div>
 
 <script>
-  // background drifting candy hearts
-  const emojis = ["🍬","💗","🍭","✨"];
-  for (let i = 0; i < 16; i++) {
+  // ---- background drift ----
+  const emojis = ["💌","💗","✨","🍬","🍭"];
+  for (let i = 0; i < 14; i++) {
     const el = document.createElement("div");
     el.className = "drift";
     el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     el.style.left = Math.random() * 100 + "vw";
     el.style.animationDuration = (10 + Math.random() * 10) + "s";
     el.style.animationDelay = (Math.random() * -20) + "s";
-    el.style.fontSize = (18 + Math.random() * 20) + "px";
+    el.style.fontSize = (16 + Math.random() * 18) + "px";
     document.body.appendChild(el);
   }
 
   document.getElementById("nameSlot").textContent =
-    getComputedStyle(document.documentElement).getPropertyValue('--recipient-name').replace(/"/g, '').trim() || "you";
+    getComputedStyle(document.documentElement).getPropertyValue('--recipient-name').replace(/"/g,'').trim() || "you";
 
+  // ---- pagination ----
+  const pages = Array.from(document.querySelectorAll(".page"));
+  const dotsWrap = document.getElementById("dots");
+  const jarIcon = document.getElementById("jarIcon");
+  let current = 0;
+  const answers = { food: null, vibe: null, time: null };
+
+  pages.forEach(() => {
+    const d = document.createElement("div");
+    d.className = "dot";
+    dotsWrap.appendChild(d);
+  });
+  const dotEls = Array.from(dotsWrap.children);
+
+  function renderNav() {
+    pages.forEach((p, i) => p.classList.toggle("active", i === current));
+    dotEls.forEach((d, i) => d.classList.toggle("done", i <= current));
+    const jars = ["🍯","🍕","🎨","🌙","🍬","💝"];
+    jarIcon.textContent = jars[Math.min(current, jars.length - 1)];
+  }
+  renderNav();
+
+  function goTo(i) { current = i; renderNav(); }
+
+  document.querySelectorAll(".next").forEach(btn => btn.addEventListener("click", () => {
+    if (current < pages.length - 1) goTo(current + 1);
+  }));
+  document.querySelectorAll(".back").forEach(btn => btn.addEventListener("click", () => {
+    if (current > 0) goTo(current - 1);
+  }));
+
+  // ---- quiz option selection: auto-advance ----
+  document.querySelectorAll(".opt-grid").forEach(grid => {
+    const qKey = grid.dataset.q;
+    grid.querySelectorAll(".opt").forEach(opt => {
+      opt.addEventListener("click", () => {
+        grid.querySelectorAll(".opt").forEach(o => o.classList.remove("selected"));
+        opt.classList.add("selected");
+        answers[qKey] = opt.dataset.value;
+        setTimeout(() => {
+          if (current < pages.length - 1) goTo(current + 1);
+          if (current === 4) craftDate();
+        }, 350);
+      });
+    });
+  });
+
+  // ---- craft the date idea from answers ----
+  const foodMap = {
+    pizza: "grab pizza and something comforting",
+    sushi: "get a little dressed up for sushi",
+    coffee: "grab coffee and pastries",
+    tacos: "go hunt down the best tacos in town"
+  };
+  const vibeMap = {
+    cozy: "somewhere cozy and quiet",
+    outdoor: "somewhere outdoors",
+    artsy: "somewhere artsy and creative",
+    lively: "somewhere lively and social"
+  };
+  const timeMap = {
+    morning: "in the morning",
+    afternoon: "in the afternoon",
+    evening: "in the evening",
+    night: "late at night"
+  };
+
+  function craftDate() {
+    setTimeout(() => {
+      const food = foodMap[answers.food] || "grab something to eat";
+      const vibe = vibeMap[answers.vibe] || "somewhere nice";
+      const time = timeMap[answers.time] || "sometime soon";
+      document.getElementById("dateIdea").textContent =
+        "Let's " + food + ", " + vibe + ", " + time + ".";
+      goTo(5);
+    }, 1200);
+  }
+
+  // ---- final ask: dodging no + confetti yes ----
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
-  const btnRow = document.getElementById("btnRow");
   let dodges = 0;
 
   function dodge() {
     dodges++;
-    const rect = btnRow.getBoundingClientRect();
     const margin = 60;
     const maxX = window.innerWidth - margin;
     const maxY = window.innerHeight - margin;
     const newX = Math.max(margin, Math.random() * maxX);
     const newY = Math.max(margin, Math.random() * maxY);
-
     noBtn.classList.add("noBtn-fixed");
     noBtn.style.left = newX + "px";
     noBtn.style.top = newY + "px";
-
-    // grows a little each time, and yes button grows to match its enthusiasm
     yesBtn.style.setProperty("--grow", Math.min(dodges, 6));
     yesBtn.classList.add("grow");
-
     const teases = ["nope!", "try again", "so close", "nice try", "almost", "keep trying", "not today", "gotcha"];
     if (dodges <= teases.length) noBtn.textContent = teases[dodges - 1];
   }
-
   noBtn.addEventListener("mouseenter", dodge);
   noBtn.addEventListener("click", (e) => { e.preventDefault(); dodge(); });
   noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); dodge(); }, { passive: false });
 
   function launchConfetti() {
     const colors = ["#FF6F91", "#FFD166", "#8FD9C4", "#FF9EB5", "#FFB6C1"];
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 90; i++) {
       const piece = document.createElement("div");
       piece.className = "confetti-piece";
       piece.style.left = Math.random() * 100 + "vw";
@@ -299,10 +339,9 @@
       setTimeout(() => piece.remove(), 4000);
     }
   }
-
   yesBtn.addEventListener("click", () => {
-    document.getElementById("askBlock").classList.add("hidden");
-    document.getElementById("revealBlock").classList.add("show");
+    document.getElementById("finalAsk").style.display = "none";
+    document.getElementById("finalReveal").classList.add("show");
     launchConfetti();
   });
 </script>
